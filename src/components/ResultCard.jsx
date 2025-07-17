@@ -1,11 +1,19 @@
 
 import React from 'react';
 
-function ResultCard() {
+function ResultCard({ amount, fromCurrency, toCurrency, convertedAmount, error }) {
   return (
     <div style={styles.card}>
       <h3>Conversion Result</h3>
-      <p style={styles.resultText}>100 JPY = 0.69 USD</p>
+      {error ? (
+        <p style={{ color: 'red' }}>{error}</p>
+      ) : (
+        <p style={styles.resultText}>
+          {amount && convertedAmount
+            ? `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`
+            : 'Enter amount and convert to see result'}
+        </p>
+      )}
     </div>
   );
 }

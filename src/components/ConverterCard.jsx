@@ -1,37 +1,55 @@
 import React from "react";
+import { convertCurrency } from '../API/CurrencyApi';
 
-function ConverterCard() {
+function ConverterCard({
+  fromCurrency,
+  toCurrency,
+  amount,
+  setFromCurrency,
+  setToCurrency,
+  setAmount,
+  onConvert, // <-- new prop
+}) {
   return (
     <div style={styles.card}>
       <h2>Currency Converter</h2>
 
-      {/* Currency selectors */}
       <div style={styles.row}>
-        <select style={styles.select}>
+        <select
+          style={styles.select}
+          value={fromCurrency}
+          onChange={(e) => setFromCurrency(e.target.value)}
+        >
           <option value="JPY">JPY</option>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
         </select>
 
-        <select style={styles.select}>
+        <select
+          style={styles.select}
+          value={toCurrency}
+          onChange={(e) => setToCurrency(e.target.value)}
+        >
           <option value="JPY">JPY</option>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
         </select>
       </div>
 
-      {/* Input amount */}
       <input
         type="number"
         placeholder="Enter amount"
         style={styles.input}
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
       />
 
-      {/* Convert button */}
-      <button style={styles.button}>Convert</button>
+      <button style={styles.button} onClick={onConvert}>Convert</button>
+
     </div>
   );
 }
+
 
 const styles = {
   card: {
